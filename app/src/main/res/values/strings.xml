@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FirebaseDataSavedEditetext</string>
+
+    <array name="task">
+        <item>Important</item>
+        <item>Very Important</item>
+    </array>
 </resources>
