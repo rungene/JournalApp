@@ -2,11 +2,14 @@ package com.rungene.firebasedatasavededitetext;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -56,6 +59,18 @@ public class TaskActivity extends AppCompatActivity {
 
             }
         });
+
+        listViewTask.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                Task task = taskList.get(position);
+                showUpdateDialog(task.getTaskId(),task.getTaskName());
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -80,6 +95,64 @@ public class TaskActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+
+    private void showUpdateDialog(final String taskId, String taskName){
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        LayoutInflater layoutInflater = getLayoutInflater();
+        final View dialogView = layoutInflater.inflate(R.layout.update_dialog,null);
+        dialogBuilder.setView(dialogView);
+
+
+        final EditText editTextUpdate = (EditText)dialogView.findViewById(R.id.editTextUpdate);
+        final  Button buttonUpdate = (Button)dialogView.findViewById(R.id.buttonUpdate);
+        final  Spinner spinnerUpdate = (Spinner)dialogView.findViewById(R.id.spinnerUpdate);
+
+
+        dialogBuilder.setTitle("Updating task"+taskName);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name = editTextUpdate.getText().toString().trim();
+
+                String type = spinnerUpdate.getSelectedItem().toString();
+
+                if (TextUtils.isEmpty(name)){
+                    editTextUpdate.setError("Name Required");
+
+                    return;
+                }
+                updateArtist(taskId,name,type);
+
+                alertDialog.dismiss();
+
+            }
+        });
+
+
+
+    }
+    private boolean updateArtist(String id,String name, String type){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("task").child(id);
+
+        Task task = new Task(id,name,type);
+
+        databaseReference.setValue(task);
+
+        Toast.makeText(this, "Task Updated", Toast.LENGTH_SHORT).show();
+
+        return true;
+
+
     }
 
     private void addTask(){
