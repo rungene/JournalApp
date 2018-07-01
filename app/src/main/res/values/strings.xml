@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">FirebaseDataSavedEditetext</string>
+    <string name="app_name">Journal</string>
+
+    <string name="app_logout">Logout</string>
 
     <array name="task">
         <item>Important</item>

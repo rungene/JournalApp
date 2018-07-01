@@ -38,7 +38,7 @@ public class TaskList extends ArrayAdapter<Task>{
         Task task = taskList.get(position);
 
         textViewName.setText(task.getTaskName());
-        textViewType.setText(task.getTaskName());
+        textViewType.setText(task.getTaskType());
 
         return listItemView;
     }
