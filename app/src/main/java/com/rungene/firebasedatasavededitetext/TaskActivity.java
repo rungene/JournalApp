@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,7 @@ public class TaskActivity extends AppCompatActivity {
 
     ListView listViewTask;
     List<Task> taskList;
+    private FirebaseAuth mAuth;
 
 
 
@@ -50,6 +52,7 @@ public class TaskActivity extends AppCompatActivity {
         spinnerTask = (Spinner) findViewById(R.id.spinnerTask);
         listViewTask = (ListView) findViewById(R.id.listViewTask);
         taskList = new ArrayList<>();
+        mAuth = FirebaseAuth.getInstance();
 
 
         buttonAddTask.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +194,11 @@ public class TaskActivity extends AppCompatActivity {
 
         if (id == R.id.action_logout) {
             // launch MainActivityAdditions activity
-            startActivity(new Intent(TaskActivity.this, AccountActivity.class));
+            mAuth.signOut();
+
+
+            startActivity(new Intent(TaskActivity.this, MainActivity.class));
+            finish();
             //NavUtils.navigateUpFromSameTask(this);
             return true;
         }
