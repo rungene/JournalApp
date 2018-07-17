@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,52 +7,63 @@
 
 
     <com.google.android.gms.common.SignInButton
-        android:layout_marginTop="150dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/googleBtn"
-        ></com.google.android.gms.common.SignInButton>
-
-<!--    <Button
-        android:id="@+id/firebase_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_marginTop="150dp"></com.google.android.gms.common.SignInButton>
+
+    <ProgressBar
+        android:id="@+id/progressBarSignin"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/email_filed"
-        android:layout_marginTop="20dp"
-        android:text="Save" />
-
-    <EditText
-        android:id="@+id/name_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="enter your name"
-        android:inputType="textPersonName" />
+        android:layout_marginTop="18dp"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
-    <EditText
-        android:id="@+id/email_filed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name_field"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="your email"
-        android:inputType="textEmailAddress" />
+    <!--    <Button
+            android:id="@+id/firebase_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/email_filed"
+            android:layout_marginTop="20dp"
+            android:text="Save" />
 
-    <Button
-        android:id="@+id/savedData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/firebase_btn"
-        android:layout_marginTop="20dp"
-        android:text="View Saved Data" />-->
+        <EditText
+            android:id="@+id/name_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="enter your name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/email_filed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_field"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="your email"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/savedData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/firebase_btn"
+            android:layout_marginTop="20dp"
+            android:text="View Saved Data" />-->
 
 </android.widget.RelativeLayout>

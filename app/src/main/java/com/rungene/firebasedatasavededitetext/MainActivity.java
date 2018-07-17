@@ -1,12 +1,12 @@
 package com.rungene.firebasedatasavededitetext;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "MAIN_ACTIVITY";
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBarSignin;
+
 
 
     @Override
@@ -45,16 +46,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mGoogleBtn = (SignInButton) findViewById(R.id.googleBtn);
         mAuth = FirebaseAuth.getInstance();
-        progressDialog =new ProgressDialog(this);
+        progressBarSignin = (ProgressBar) findViewById(R.id.progressBarSignin);
+
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
                 if (firebaseAuth.getCurrentUser() != null){
+                    progressBarSignin.setVisibility(View.VISIBLE);
                     startActivity(new Intent(MainActivity.this,TaskActivity.class));
 
                 }
+               // progressBarSignin.setVisibility(View.INVISIBLE);
             }
         };
+
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -149,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthListener);
     }
     private void signIn() {
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -157,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -164,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+
+
+
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
@@ -173,18 +186,23 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(MainActivity.this, "Authentication success", Toast.LENGTH_SHORT).show();
                            // updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
